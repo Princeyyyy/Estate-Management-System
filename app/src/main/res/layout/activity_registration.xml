@@ -5,10 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-    android:background="@color/login_bk_color"
+    android:background="@color/register_bk_color"
     android:focusableInTouchMode="true"
     android:gravity="center"
-    tools:context=".LoginActivity">
+    tools:context=".RegistrationActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -26,8 +26,8 @@
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
                 android:fontFamily="@font/ubuntu_medium"
-                android:text="Welcome\nBack:"
-                android:textColor="@color/black"
+                android:text="Add\nnew\nTenant"
+                android:textColor="@color/white"
                 android:textSize="23sp" />
 
             <ImageView
@@ -35,7 +35,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentRight="true"
-                android:src="@drawable/ic_register_hero" />
+                android:src="@drawable/ic_login_hero" />
         </RelativeLayout>
 
     </LinearLayout>
@@ -43,55 +43,57 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
         android:layout_marginTop="270dp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
+        android:layout_marginRight="14dp"
+        android:background="@drawable/background"
         android:orientation="vertical">
 
         <EditText
-            android:id="@+id/loginUsername"
+            android:id="@+id/registrationEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:layout_margin="20dp"
             android:background="@drawable/inputs"
-            android:drawableStart="@drawable/ic_baseline_account_circle_24"
-            android:drawablePadding="10dp"
+            android:drawableStart="@drawable/ic_baseline_email_24"
             android:drawableTint="@color/black"
+            android:drawablePadding="10dp"
             android:hint="Email"
             android:padding="10dp"
             android:textColor="@color/black"
             android:textColorHint="@color/textColor" />
 
         <EditText
-            android:id="@+id/loginPassword"
+            android:id="@+id/registrationPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:layout_margin="20dp"
             android:background="@drawable/inputs"
             android:drawableStart="@drawable/ic_baseline_lock_24"
-            android:drawablePadding="10dp"
             android:drawableTint="@color/black"
+            android:drawablePadding="10dp"
             android:hint="Password"
             android:inputType="textPassword"
+            app:passwordToggleEnabled="true"
             android:padding="10dp"
             android:textColor="@color/black"
             android:textColorHint="@color/textColor" />
 
-    </LinearLayout>
+        <Button
+            android:id="@+id/signupButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="70dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginRight="70dp"
+            android:layout_marginBottom="20dp"
+            android:fontFamily="@font/ubuntu_medium"
+            android:text="Register"
+            android:background="@drawable/inputs"
+            android:textAllCaps="false"
+            android:textColor="@color/white" />
 
-    <Button
-        android:id="@+id/loginButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="70dp"
-        android:layout_marginTop="440dp"
-        android:layout_marginRight="70dp"
-        android:fontFamily="@font/ubuntu_medium"
-        android:text="Login"
-        android:background="@drawable/inputs"
-        android:textAllCaps="false"
-        android:textColor="@color/white" />
+    </LinearLayout>
 
     <View
         android:layout_width="11dp"
@@ -104,11 +106,11 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
+        android:layout_alignParentLeft="true"
         android:layout_alignParentBottom="true"
         android:layout_marginRight="11dp"
         android:layout_marginBottom="30dp"
-        android:onClick="onRegistrationClick"
-        android:src="@drawable/ic_add_img" />
+        android:adjustViewBounds="false"
+        android:src="@drawable/ic_back_img" />
 
 </RelativeLayout>

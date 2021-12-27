@@ -20,14 +20,14 @@ import com.google.firebase.auth.FirebaseAuth;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class LoginActivity extends AppCompatActivity {
+public class RegistrationActivity extends AppCompatActivity {
 
-    @BindView(R.id.loginUsername)
-    EditText mloginEmail;
-    @BindView(R.id.loginPassword)
-    EditText mloginPassword;
-    @BindView(R.id.loginButton)
-    Button mloginButton;
+    @BindView(R.id.registrationEmail)
+    EditText mregistrationEmail;
+    @BindView(R.id.registrationPassword)
+    EditText mregistrationPassword;
+    @BindView(R.id.signupButton)
+    Button msignupButton;
 
     private FirebaseAuth mAuth;
     private ProgressDialog loader;
@@ -35,56 +35,47 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_registration);
         ButterKnife.bind(this);
 
         mAuth = FirebaseAuth.getInstance();
         loader = new ProgressDialog(this);
 
-//        if (mAuth.getCurrentUser() != null) {
-//            Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-//            startActivity(intent);
-//        }
-
-        mloginButton.setOnClickListener(new View.OnClickListener() {
+        msignupButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String email = mloginEmail.getText().toString().trim();
-                String password = mloginPassword.getText().toString().trim();
+                String email = mregistrationEmail.getText().toString().trim();
+                String password = mregistrationPassword.getText().toString().trim();
 
                 if (TextUtils.isEmpty(email)) {
-                    mloginEmail.setError("Username Required");
+                    mregistrationEmail.setError("Email Required");
+                    return;
                 }
                 if (TextUtils.isEmpty(password)) {
-                    mloginPassword.setError("Password Required");
+                    mregistrationPassword.setError("Password Required");
                 } else {
-                    loader.setMessage("LogIn in Progress");
+                    loader.setMessage("Registration in Progress");
                     loader.setCanceledOnTouchOutside(false);
                     loader.show();
-
-                    mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
+
                             if (task.isSuccessful()) {
-                                Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                                Intent intent = new Intent(RegistrationActivity.this, HomeActivity.class);
                                 startActivity(intent);
                                 finish();
                                 loader.dismiss();
                             } else {
                                 String error = task.getException().toString();
-                                Toast.makeText(LoginActivity.this, "Login Failed " + error, Toast.LENGTH_SHORT).show();
+                                Toast.makeText(RegistrationActivity.this, "Registration Failed " + error, Toast.LENGTH_SHORT).show();
                                 loader.dismiss();
                             }
                         }
                     });
                 }
             }
-        });
-    }
 
-    public void onRegistrationClick(View View){
-        Intent intent =  new Intent(this,RegistrationActivity.class);
-        startActivity(intent);
-        overridePendingTransition(R.anim.slide_in_right,R.anim.stay);
+        });
     }
 }
