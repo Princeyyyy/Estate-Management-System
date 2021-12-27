@@ -26,7 +26,7 @@
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
                 android:fontFamily="@font/ubuntu_medium"
-                android:text="Add\nnew\nTenant"
+                android:text="New\nTenant\nRegistration"
                 android:textColor="@color/white"
                 android:textSize="23sp" />
 
@@ -44,20 +44,70 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="270dp"
+        android:layout_marginTop="230dp"
         android:layout_marginRight="14dp"
         android:background="@drawable/background"
         android:orientation="vertical">
 
         <EditText
+            android:id="@+id/houseno"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/inputs"
+            android:drawableStart="@drawable/ic_baseline_house_24"
+            android:drawablePadding="10dp"
+            android:drawableTint="@color/black"
+            android:hint="House No"
+            android:padding="10dp"
+            android:textColor="@color/black"
+            android:textColorHint="@color/textColor" />
+
+        <EditText
+            android:id="@+id/firstname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/inputs"
+            android:drawableStart="@drawable/ic_baseline_person_24"
+            android:drawablePadding="10dp"
+            android:drawableTint="@color/black"
+            android:hint="First Name"
+            android:padding="10dp"
+            android:textColor="@color/black"
+            android:textColorHint="@color/textColor" />
+
+        <EditText
+            android:id="@+id/lastname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/inputs"
+            android:drawableStart="@drawable/ic_baseline_person_24"
+            android:drawablePadding="10dp"
+            android:drawableTint="@color/black"
+            android:hint="Last Name"
+            android:padding="10dp"
+            android:textColor="@color/black"
+            android:textColorHint="@color/textColor" />
+
+        <EditText
             android:id="@+id/registrationEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="15dp"
             android:background="@drawable/inputs"
             android:drawableStart="@drawable/ic_baseline_email_24"
+            android:drawablePadding="15dp"
             android:drawableTint="@color/black"
-            android:drawablePadding="10dp"
             android:hint="Email"
             android:padding="10dp"
             android:textColor="@color/black"
@@ -67,29 +117,31 @@
             android:id="@+id/registrationPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="15dp"
             android:background="@drawable/inputs"
             android:drawableStart="@drawable/ic_baseline_lock_24"
-            android:drawableTint="@color/black"
             android:drawablePadding="10dp"
+            android:drawableTint="@color/black"
             android:hint="Password"
             android:inputType="textPassword"
-            app:passwordToggleEnabled="true"
             android:padding="10dp"
             android:textColor="@color/black"
-            android:textColorHint="@color/textColor" />
+            android:textColorHint="@color/textColor"
+            app:passwordToggleEnabled="true" />
 
         <Button
             android:id="@+id/signupButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="70dp"
-            android:layout_marginTop="0dp"
+            android:layout_marginTop="15dp"
             android:layout_marginRight="70dp"
             android:layout_marginBottom="20dp"
+            android:background="@drawable/inputs"
             android:fontFamily="@font/ubuntu_medium"
             android:text="Register"
-            android:background="@drawable/inputs"
             android:textAllCaps="false"
             android:textColor="@color/white" />
 
@@ -111,6 +163,7 @@
         android:layout_marginRight="11dp"
         android:layout_marginBottom="30dp"
         android:adjustViewBounds="false"
+        android:onClick="onLoginClick"
         android:src="@drawable/ic_back_img" />
 
 </RelativeLayout>

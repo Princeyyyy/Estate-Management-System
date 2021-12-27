@@ -78,4 +78,11 @@ public class RegistrationActivity extends AppCompatActivity {
 
         });
     }
+
+    public void onLoginClick(View view) {
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_left, R.anim.stay);
+
+    }
 }
