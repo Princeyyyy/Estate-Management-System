@@ -29,21 +29,11 @@ public class RegistrationActivity extends AppCompatActivity {
     EditText mregistrationEmail;
     @BindView(R.id.registrationPassword)
     EditText mregistrationPassword;
-    @BindView(R.id.houseno)
-    EditText mhouseno;
-    @BindView(R.id.firstname)
-    EditText mfirstname;
-    @BindView(R.id.lastname)
-    EditText mlastname;
     @BindView(R.id.signupButton)
     Button msignupButton;
 
     private FirebaseAuth mAuth;
     private ProgressDialog loader;
-
-    private DatabaseReference reference;
-    private FirebaseUser mUser;
-    private String onlineUserId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,32 +44,12 @@ public class RegistrationActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         loader = new ProgressDialog(this);
 
-        mUser = mAuth.getCurrentUser();
-        onlineUserId = mUser.getUid();
-        reference = FirebaseDatabase.getInstance().getReference().child("Users").child(onlineUserId);
-
         msignupButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String email = mregistrationEmail.getText().toString().trim();
                 String password = mregistrationPassword.getText().toString().trim();
-                String houseno = mhouseno.getText().toString().trim();
-                String firstname = mfirstname.getText().toString().trim();
-                String lastname = mlastname.getText().toString().trim();
-                String id = reference.push().getKey();
 
-                if (TextUtils.isEmpty(houseno)) {
-                    mhouseno.setError("House no Required");
-                    return;
-                }
-                if (TextUtils.isEmpty(firstname)) {
-                    mfirstname.setError("First Name Required");
-                    return;
-                }
-                if (TextUtils.isEmpty(lastname)) {
-                    mlastname.setError("Last Name Required");
-                    return;
-                }
                 if (TextUtils.isEmpty(email)) {
                     mregistrationEmail.setError("Email Required");
                     return;
@@ -91,29 +61,15 @@ public class RegistrationActivity extends AppCompatActivity {
                     loader.setCanceledOnTouchOutside(false);
                     loader.show();
 
-                    UserModel userModel = new UserModel(houseno, firstname, lastname, "0", "31st");
-
                     mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
 
                             if (task.isSuccessful()) {
-                                reference.child(id).setValue(userModel).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<Void> mtask) {
-                                        if (mtask.isSuccessful()) {
-                                            Toast.makeText(RegistrationActivity.this, "Registration Successful!", Toast.LENGTH_SHORT).show();
-                                            Intent intent = new Intent(RegistrationActivity.this, UserHomeActivity.class);
-                                            startActivity(intent);
-                                            finish();
-                                            loader.dismiss();
-                                        } else {
-                                            String error = mtask.getException().toString();
-                                            Toast.makeText(RegistrationActivity.this, "Failed " + error, Toast.LENGTH_SHORT).show();
-                                            loader.dismiss();
-                                        }
-                                    }
-                                });
+                                Intent intent = new Intent(RegistrationActivity.this, UserHomeActivity.class);
+                                startActivity(intent);
+                                finish();
+                                loader.dismiss();
                             } else {
                                 String error = task.getException().toString();
                                 Toast.makeText(RegistrationActivity.this, "Registration Failed " + error, Toast.LENGTH_SHORT).show();

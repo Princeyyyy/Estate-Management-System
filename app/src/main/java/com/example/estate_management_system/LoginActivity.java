@@ -42,7 +42,7 @@ public class LoginActivity extends AppCompatActivity {
         loader = new ProgressDialog(this);
 
 //        if (mAuth.getCurrentUser() != null) {
-//            Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+//            Intent intent = new Intent(LoginActivity.this, UserHomeActivity.class);
 //            startActivity(intent);
 //        }
 
