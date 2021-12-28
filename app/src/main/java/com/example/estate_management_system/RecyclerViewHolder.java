@@ -14,22 +14,32 @@ public class RecyclerViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void setFName(String fName){
-        TextView taskTextView = mview.findViewById(R.id.name);
-        taskTextView.setText(fName);
+        TextView fNameTextView = mview.findViewById(R.id.ufirst_name);
+        fNameTextView.setText(fName);
+    }
+
+    public void setLName(String LName){
+        TextView lNameTextView = mview.findViewById(R.id.ulast_name);
+        lNameTextView.setText(LName);
     }
 
     public void setHouseNo(String houseNo){
-        TextView taskTextView = mview.findViewById(R.id.house_no);
-        taskTextView.setText(houseNo);
+        TextView houseNoTextView = mview.findViewById(R.id.uhouse_no);
+        houseNoTextView.setText(houseNo);
     }
 
     public void setRent(String rent){
-        TextView taskTextView = mview.findViewById(R.id.rent);
-        taskTextView.setText(rent);
+        TextView rentTextView = mview.findViewById(R.id.urent);
+        rentTextView.setText(rent);
     }
 
     public void setDueDate(String dueDate){
-        TextView taskTextView = mview.findViewById(R.id.due_date);
-        taskTextView.setText(dueDate);
+        TextView dueDateTextView = mview.findViewById(R.id.udue_date);
+        dueDateTextView.setText(dueDate);
+    }
+
+    public void setAdditionalCharges(String additionalCharges){
+        TextView additionalChargesTextView = mview.findViewById(R.id.uadditional_charges2);
+        additionalChargesTextView.setText(additionalCharges);
     }
 }

@@ -2,32 +2,24 @@ package com.example.estate_management_system;
 
 public class UserModel {
 
-    private String id;
     private String houseno;
     private String fname;
     private String lname;
     private String rent;
     private String due_date;
+    private String additional_charges;
 
 
     public UserModel() {
     }
 
-    public UserModel(String id, String houseno, String fname, String lname, String rent, String due_date) {
-        this.id = id;
+    public UserModel(String houseno, String fname, String lname, String rent, String due_date, String additional_charges) {
         this.houseno = houseno;
         this.fname = fname;
         this.lname = lname;
         this.rent = rent;
         this.due_date = due_date;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
+        this.additional_charges = additional_charges;
     }
 
     public String getHouseno() {
@@ -68,5 +60,13 @@ public class UserModel {
 
     public void setDue_date(String due_date) {
         this.due_date = due_date;
+    }
+
+    public String getAdditional_charges() {
+        return additional_charges;
+    }
+
+    public void setAdditional_charges(String additional_charges) {
+        this.additional_charges = additional_charges;
     }
 }

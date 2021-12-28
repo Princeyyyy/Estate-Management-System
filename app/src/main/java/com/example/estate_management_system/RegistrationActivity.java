@@ -16,9 +16,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -66,7 +63,7 @@ public class RegistrationActivity extends AppCompatActivity {
                         public void onComplete(@NonNull Task<AuthResult> task) {
 
                             if (task.isSuccessful()) {
-                                Intent intent = new Intent(RegistrationActivity.this, UserHomeActivity.class);
+                                Intent intent = new Intent(RegistrationActivity.this, ChoiceActivity.class);
                                 startActivity(intent);
                                 finish();
                                 loader.dismiss();
@@ -79,7 +76,6 @@ public class RegistrationActivity extends AppCompatActivity {
                     });
                 }
             }
-
         });
     }
 

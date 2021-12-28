@@ -41,10 +41,10 @@ public class LoginActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         loader = new ProgressDialog(this);
 
-//        if (mAuth.getCurrentUser() != null) {
-//            Intent intent = new Intent(LoginActivity.this, UserHomeActivity.class);
-//            startActivity(intent);
-//        }
+        if (mAuth.getCurrentUser() != null) {
+            Intent intent = new Intent(LoginActivity.this, UserHomeActivity.class);
+            startActivity(intent);
+        }
 
         mloginButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,9 +82,9 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    public void onRegistrationClick(View View){
-        Intent intent =  new Intent(this,RegistrationActivity.class);
+    public void onRegistrationClick(View View) {
+        Intent intent = new Intent(this, RegistrationActivity.class);
         startActivity(intent);
-        overridePendingTransition(R.anim.slide_in_right,R.anim.stay);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.stay);
     }
 }
