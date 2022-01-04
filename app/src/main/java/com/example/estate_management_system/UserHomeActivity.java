@@ -6,7 +6,6 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.media.Image;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,8 +25,6 @@ import butterknife.ButterKnife;
 public class UserHomeActivity extends AppCompatActivity {
     @BindView(R.id.recyclerView1)
     RecyclerView mrecyclerView;
-    @BindView(R.id.image)
-    ImageView image;
 
     private DatabaseReference reference;
     private FirebaseAuth mAuth;
@@ -35,13 +32,7 @@ public class UserHomeActivity extends AppCompatActivity {
     private String onlineUserId;
     private long pressedTime;
 
-    private String key = "";
-    private String fname;
-    private String lname;
-    private String houseno;
-    private String rent;
-    private String dueDate;
-    private String additionalCharges;
+
     private Toolbar toolbar;
 
     @Override
@@ -53,10 +44,11 @@ public class UserHomeActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.homeToolbar);
 
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("Houses");
+        getSupportActionBar().setTitle("User Houses");
 
         mAuth = FirebaseAuth.getInstance();
 
+        mrecyclerView = findViewById(R.id.recyclerView1);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setReverseLayout(true);
         linearLayoutManager.setStackFromEnd(true);
@@ -66,13 +58,6 @@ public class UserHomeActivity extends AppCompatActivity {
         mUser = mAuth.getCurrentUser();
         onlineUserId = mUser.getUid();
         reference = FirebaseDatabase.getInstance().getReference().child("Users").child(onlineUserId);
-
-        image.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                exit();
-            }
-        });
 
     }
 
@@ -84,9 +69,9 @@ public class UserHomeActivity extends AppCompatActivity {
                 .setQuery(reference, UserModel.class)
                 .build();
 
-        FirebaseRecyclerAdapter<UserModel, RecyclerViewHolder> adapter = new FirebaseRecyclerAdapter<UserModel, RecyclerViewHolder>(options) {
+        FirebaseRecyclerAdapter<UserModel, UserRecyclerViewHolder> adapter = new FirebaseRecyclerAdapter<UserModel, UserRecyclerViewHolder>(options) {
             @Override
-            protected void onBindViewHolder(@NonNull RecyclerViewHolder holder, int i, @NonNull UserModel model) {
+            protected void onBindViewHolder(@NonNull UserRecyclerViewHolder holder, int i, @NonNull UserModel model) {
                 holder.setFName("First Name: " + model.getFname());
                 holder.setLName("Last Name: " + model.getLname());
                 holder.setHouseNo("House No " + model.getHouseno());
@@ -97,9 +82,9 @@ public class UserHomeActivity extends AppCompatActivity {
 
             @NonNull
             @Override
-            public RecyclerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            public UserRecyclerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
                 View view = getLayoutInflater().from(parent.getContext()).inflate(R.layout.return_layout2, parent, false);
-                return new RecyclerViewHolder(view);
+                return new UserRecyclerViewHolder(view);
             }
         };
 

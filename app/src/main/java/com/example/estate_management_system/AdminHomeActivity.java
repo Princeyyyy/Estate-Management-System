@@ -2,15 +2,14 @@ package com.example.estate_management_system;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
@@ -31,14 +30,8 @@ public class AdminHomeActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseUser mUser;
     private String onlineUserId;
-    private ProgressDialog loader;
 
-    private String key = "";
-    private String fname;
-    private String lname;
-    private String houseno;
-    private String rent;
-    private String dueDate;
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,18 +39,23 @@ public class AdminHomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_admin_home);
         ButterKnife.bind(this);
 
+        toolbar = findViewById(R.id.homeToolbar);
+
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Houses");
+
         mAuth = FirebaseAuth.getInstance();
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setReverseLayout(true);
         linearLayoutManager.setStackFromEnd(true);
-
         mrecyclerView.setHasFixedSize(true);
         mrecyclerView.setLayoutManager(linearLayoutManager);
 
         mUser = mAuth.getCurrentUser();
         onlineUserId = mUser.getUid();
-        reference = FirebaseDatabase.getInstance().getReference().child("tasks").child(onlineUserId);
+        reference = FirebaseDatabase.getInstance().getReference().child("Users").child(onlineUserId);
+
     }
 
     @Override
@@ -65,36 +63,25 @@ public class AdminHomeActivity extends AppCompatActivity {
         super.onStart();
 
         FirebaseRecyclerOptions<UserModel> options = new FirebaseRecyclerOptions.Builder<UserModel>()
-                .setQuery(reference,UserModel.class)
+                .setQuery(reference, UserModel.class)
                 .build();
 
-        FirebaseRecyclerAdapter<UserModel, RecyclerViewHolder> adapter = new FirebaseRecyclerAdapter<UserModel, RecyclerViewHolder>(options) {
+        FirebaseRecyclerAdapter<UserModel, AdminRecyclerViewHolder> adapter = new FirebaseRecyclerAdapter<UserModel, AdminRecyclerViewHolder>(options) {
             @Override
-            protected void onBindViewHolder(@NonNull RecyclerViewHolder holder, int i, @NonNull UserModel model) {
-                holder.setFName(model.getFname());
-                holder.setLName(model.getLname());
-                holder.setHouseNo(model.getHouseno());
-                holder.setRent(model.getRent());
-                holder.setDueDate(model.getDue_date());
-
-                holder.mview.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        key = getRef(i).getKey();
-                        fname = model.getFname();
-                        lname = model.getLname();
-                        houseno = model.getHouseno();
-                        rent = model.getRent();
-                        dueDate = model.getDue_date();
-                    }
-                });
+            protected void onBindViewHolder(@NonNull AdminRecyclerViewHolder holder, int i, @NonNull UserModel model) {
+                holder.setFName("First Name: " + model.getFname());
+                holder.setLName("Last Name: " + model.getLname());
+                holder.setHouseNo("House No " + model.getHouseno());
+                holder.setRent("Rent: " + model.getRent() + ".ksh");
+                holder.setDueDate("Rent Due Date: " + model.getDue_date());
+                holder.setAdditionalCharges("Additional Charges: " + model.getAdditional_charges() + ".ksh");
             }
 
             @NonNull
             @Override
-            public RecyclerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                View view = getLayoutInflater().from(parent.getContext()).inflate(R.layout.activity_user_home, parent, false);
-                return new RecyclerViewHolder(view);
+            public AdminRecyclerViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                View view = getLayoutInflater().from(parent.getContext()).inflate(R.layout.return_layout, parent, false);
+                return new AdminRecyclerViewHolder(view);
             }
         };
 
