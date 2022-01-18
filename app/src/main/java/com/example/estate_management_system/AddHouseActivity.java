@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -38,6 +39,8 @@ public class AddHouseActivity extends AppCompatActivity {
     EditText addlastname;
     @BindView(R.id.addhouse)
     Button addhouse;
+    @BindView(R.id.back)
+    TextView back;
 
     private DatabaseReference reference;
     private FirebaseAuth mAuth;
@@ -57,6 +60,15 @@ public class AddHouseActivity extends AppCompatActivity {
         mUser = mAuth.getCurrentUser();
         onlineUserId = mUser.getUid();
         reference = FirebaseDatabase.getInstance().getReference().child("Users").child(onlineUserId);
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(AddHouseActivity.this,ChoiceActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.stay);
+            }
+        });
 
 
         addhouse.setOnClickListener(new View.OnClickListener() {
@@ -95,7 +107,9 @@ public class AddHouseActivity extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     if (task.isSuccessful()) {
-                        Toast.makeText(AddHouseActivity.this, "House Has Been Added Successfully", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AddHouseActivity.this, "House Has Been Added Successfully", Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(AddHouseActivity.this, UserHomeActivity.class);
+                        startActivity(intent);
                         loader.dismiss();
                     } else {
                         String error = task.getException().toString();

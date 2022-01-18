@@ -26,9 +26,9 @@
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
                 android:fontFamily="@font/ubuntu_medium"
-                android:text="New\nTenant\nRegistration"
+                android:text="New\nHouse\nRegistration!"
                 android:textColor="@color/white"
-                android:textSize="23sp" />
+                android:textSize="18sp" />
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -44,7 +44,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
-        android:layout_marginTop="230dp"
+        android:layout_marginTop="270dp"
         android:layout_marginRight="14dp"
         android:background="@drawable/background"
         android:orientation="vertical">
@@ -53,9 +53,9 @@
             android:id="@+id/addhouseno"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginRight="20dp"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="15dp"
+            android:layout_marginRight="20dp"
             android:background="@drawable/inputs"
             android:drawableStart="@drawable/ic_baseline_house_24"
             android:drawablePadding="10dp"
@@ -69,9 +69,9 @@
             android:id="@+id/addfirstname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginRight="20dp"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="15dp"
+            android:layout_marginRight="20dp"
             android:background="@drawable/inputs"
             android:drawableStart="@drawable/ic_baseline_person_24"
             android:drawablePadding="10dp"
@@ -85,9 +85,9 @@
             android:id="@+id/addlastname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginRight="20dp"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="15dp"
+            android:layout_marginRight="20dp"
             android:background="@drawable/inputs"
             android:drawableStart="@drawable/ic_baseline_person_24"
             android:drawablePadding="10dp"
@@ -110,6 +110,17 @@
             android:text="Add House"
             android:textAllCaps="false"
             android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/ubuntu_medium"
+            android:layout_marginBottom="10dp"
+            android:layout_marginStart="250dp"
+            android:text="Back!"
+            android:textColor="@color/black"
+            android:textSize="19sp" />
 
     </LinearLayout>
 
