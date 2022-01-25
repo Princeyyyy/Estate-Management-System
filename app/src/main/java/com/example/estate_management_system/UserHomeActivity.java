@@ -1,7 +1,9 @@
 package com.example.estate_management_system;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +21,7 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -30,12 +33,15 @@ import butterknife.ButterKnife;
 public class UserHomeActivity extends AppCompatActivity {
     @BindView(R.id.recyclerView1)
     RecyclerView mrecyclerView;
+    @BindView(R.id.fab)
+    FloatingActionButton mFloatingActionButton;
 
     private DatabaseReference reference;
     private FirebaseAuth mAuth;
     private FirebaseUser mUser;
     private String onlineUserId;
     private long pressedTime;
+    private ProgressDialog loader;
 
 
     private Toolbar toolbar;
@@ -61,6 +67,8 @@ public class UserHomeActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
 
+        loader = new ProgressDialog(this);
+
         mrecyclerView = findViewById(R.id.recyclerView1);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setReverseLayout(true);
@@ -72,6 +80,77 @@ public class UserHomeActivity extends AppCompatActivity {
         onlineUserId = mUser.getUid();
         reference = FirebaseDatabase.getInstance().getReference().child("Users").child(onlineUserId);
 
+        mFloatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addTask();
+            }
+        });
+
+    }
+
+    private void addTask() {
+        AlertDialog.Builder myDialog = new AlertDialog.Builder(this);
+        LayoutInflater layoutInflater = LayoutInflater.from(this);
+
+
+        View view = layoutInflater.inflate(R.layout.input_file, null);
+        myDialog.setView(view);
+
+        final AlertDialog dialog = myDialog.create();
+        dialog.setCancelable(false);
+
+        final EditText houseno = view.findViewById(R.id.houseno);
+        final EditText fname = view.findViewById(R.id.fname);
+        final EditText lname = view.findViewById(R.id.lname);
+        Button save = view.findViewById(R.id.addBtn);
+        Button cancel = view.findViewById(R.id.cancelBtn);
+
+        cancel.setOnClickListener(v -> {
+            dialog.dismiss();
+        });
+
+        save.setOnClickListener(v -> {
+            String h = houseno.getText().toString().trim();
+            String f = fname.getText().toString().trim();
+            String l = lname.getText().toString().trim();
+            String id = reference.push().getKey();
+
+            if (TextUtils.isEmpty(h)) {
+                houseno.setError("House No Required");
+                return;
+            }
+            if (TextUtils.isEmpty(f)) {
+                fname.setError("Fname Required");
+                return;
+            }
+            if (TextUtils.isEmpty(l)) {
+                lname.setError("Lname Required");
+                return;
+            } else {
+                loader.setMessage("Adding Your Task");
+                loader.setCanceledOnTouchOutside(false);
+                loader.show();
+
+                UserModel model = new UserModel(h, f, l, "0", "31st", "0");
+                reference.child(id).setValue(model).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Toast.makeText(UserHomeActivity.this, "Task Has Been Added Successfully", Toast.LENGTH_SHORT).show();
+                            loader.dismiss();
+                        } else {
+                            String error = task.getException().toString();
+                            Toast.makeText(UserHomeActivity.this, "Failed " + error, Toast.LENGTH_SHORT).show();
+                            loader.dismiss();
+                        }
+                    }
+                });
+            }
+            dialog.dismiss();
+        });
+
+        dialog.show();
     }
 
     @Override
@@ -146,7 +225,7 @@ public class UserHomeActivity extends AppCompatActivity {
                 fname = fname3.getText().toString().trim();
                 lname = lname3.getText().toString().trim();
 
-                UserModel userModel = new UserModel(houseno,fname,lname,rent,due_date,charges);
+                UserModel userModel = new UserModel(houseno, fname, lname, rent, due_date, charges);
 
                 reference.child(key).setValue(userModel).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
