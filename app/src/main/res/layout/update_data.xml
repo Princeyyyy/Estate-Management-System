@@ -89,7 +89,10 @@
                 android:id="@+id/additional_charges3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
                 android:hint="Additional Charges"
                 android:textColor="@color/black"
                 android:textStyle="italic" />
@@ -110,12 +113,15 @@
             android:layout_weight="2">
 
             <Button
-                android:id="@+id/cancelBtn"
+                android:id="@+id/deleteBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
                 android:background="@drawable/inputs"
-                android:text="Cancel"
+                android:text="Delete"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
                 android:textSize="18sp"
@@ -129,7 +135,7 @@
             android:layout_weight="2">
 
             <Button
-                android:id="@+id/saveBtn"
+                android:id="@+id/updateBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"

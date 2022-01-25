@@ -20,7 +20,7 @@ You need the following installed on your machine:
 - Gradle
 - An IDE - Android Studio
 
-To confirm run the following command on linux:
+To confirm run the following command on your terminal:
 ```
 $ java --version       //java version
 $ gradle --version     //gradle version
