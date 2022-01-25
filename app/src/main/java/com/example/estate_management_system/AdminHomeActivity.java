@@ -134,11 +134,14 @@ public class AdminHomeActivity extends AppCompatActivity {
 
         EditText rent3 = view.findViewById(R.id.rent3);
         EditText additional_charges3 = view.findViewById(R.id.additional_charges3);
+        EditText due_date3 = view.findViewById(R.id.due_date3);
 
         rent3.setText(rent);
         rent3.setSelection(rent.length());
         additional_charges3.setText(charges);
         additional_charges3.setSelection(charges.length());
+        due_date3.setText(due_date);
+        due_date3.setSelection(due_date.length());
 
         Button delButton = view.findViewById(R.id.deleteBtn);
         Button updateButton = view.findViewById(R.id.updateBtn);
@@ -148,6 +151,7 @@ public class AdminHomeActivity extends AppCompatActivity {
             public void onClick(View v) {
                 rent = rent3.getText().toString().trim();
                 charges = additional_charges3.getText().toString().trim();
+                due_date = due_date3.getText().toString().trim();
 
                 UserModel userModel = new UserModel(houseno,fname,lname,rent,due_date,charges);
 
