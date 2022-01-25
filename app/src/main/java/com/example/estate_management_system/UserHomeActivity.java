@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -210,7 +211,9 @@ public class UserHomeActivity extends AppCompatActivity {
 
         EditText fname3 = view.findViewById(R.id.rent3);
         EditText lname3 = view.findViewById(R.id.additional_charges3);
+        TextView no = view.findViewById(R.id.returnno);
 
+        no.setText("Update House No " + houseno);
         fname3.setText(fname);
         fname3.setSelection(fname.length());
         lname3.setText(lname);

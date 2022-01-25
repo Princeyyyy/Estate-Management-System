@@ -66,7 +66,7 @@ public class LoginActivity extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
-                                Intent intent = new Intent(LoginActivity.this, ChoiceActivity.class);
+                                Intent intent = new Intent(LoginActivity.this, UserHomeActivity.class);
                                 startActivity(intent);
                                 finish();
                                 loader.dismiss();

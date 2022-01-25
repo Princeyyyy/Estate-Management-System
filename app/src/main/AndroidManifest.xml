@@ -10,12 +10,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.EstateManagementSystem">
         <activity
-            android:name=".AddHouseActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ChoiceActivity"
-            android:exported="false" />
-        <activity
             android:name=".AdminHomeActivity"
             android:exported="false" />
         <activity
