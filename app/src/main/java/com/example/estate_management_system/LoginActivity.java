@@ -30,6 +30,7 @@ public class LoginActivity extends AppCompatActivity {
     Button mloginButton;
 
     private FirebaseAuth mAuth;
+    private String mAuth2;
     private ProgressDialog loader;
 
     @Override
@@ -39,12 +40,17 @@ public class LoginActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         mAuth = FirebaseAuth.getInstance();
+        mAuth2 = FirebaseAuth.getInstance().getUid();
+
         loader = new ProgressDialog(this);
 
-        String mail = mloginEmail.getText().toString().trim();
-
-        if (mAuth.getCurrentUser() != null) {
+        if (mAuth.getCurrentUser() != null && mAuth2.equals("uJSOFVb3ueOcS6uFy3D8O5irjxf2")) {
+            Toast.makeText(this, "Welcome Admin", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(LoginActivity.this, AdminHomeActivity.class);
+            startActivity(intent);
+        } else if (mAuth.getCurrentUser() != null) {
+            Toast.makeText(this, "Welcome User", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(LoginActivity.this, UserHomeActivity.class);
             startActivity(intent);
         }
 
@@ -53,6 +59,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String email = mloginEmail.getText().toString().trim();
                 String password = mloginPassword.getText().toString().trim();
+                String mail = mloginEmail.getText().toString().trim();
 
                 if (TextUtils.isEmpty(email)) {
                     mloginEmail.setError("Username Required");
@@ -67,7 +74,14 @@ public class LoginActivity extends AppCompatActivity {
                     mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
-                            if (task.isSuccessful()) {
+                            if (task.isSuccessful() && mail.equals("admin@gmail.com")) {
+                                Toast.makeText(LoginActivity.this, "Login Successful!", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(LoginActivity.this, AdminHomeActivity.class);
+                                startActivity(intent);
+                                finish();
+                                loader.dismiss();
+                            } else if (task.isSuccessful() && !mail.equals("admin@gmail.com")) {
+                                Toast.makeText(LoginActivity.this, "Login Successful!", Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(LoginActivity.this, UserHomeActivity.class);
                                 startActivity(intent);
                                 finish();

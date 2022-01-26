@@ -2,9 +2,12 @@ package com.example.estate_management_system;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -64,7 +67,7 @@ public class UserHomeActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.homeToolbar);
 
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("User Houses");
+        getSupportActionBar().setTitle("My Houses");
 
         mAuth = FirebaseAuth.getInstance();
 
@@ -138,7 +141,7 @@ public class UserHomeActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if (task.isSuccessful()) {
-                            Toast.makeText(UserHomeActivity.this, "Task Has Been Added Successfully", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(UserHomeActivity.this, "House Has Been Added Successfully", Toast.LENGTH_SHORT).show();
                             loader.dismiss();
                         } else {
                             String error = task.getException().toString();
@@ -183,7 +186,7 @@ public class UserHomeActivity extends AppCompatActivity {
                         lname = model.getLname();
                         due_date = model.getDue_date();
 
-                        updateTask();
+                        updateHouse();
 
                     }
                 });
@@ -201,7 +204,7 @@ public class UserHomeActivity extends AppCompatActivity {
         adapter.startListening();
     }
 
-    private void updateTask() {
+    private void updateHouse() {
         AlertDialog.Builder myDialog = new AlertDialog.Builder(this);
         LayoutInflater inflater = LayoutInflater.from(this);
         View view = inflater.inflate(R.layout.update_data2, null);
@@ -250,13 +253,23 @@ public class UserHomeActivity extends AppCompatActivity {
         dialog.show();
     }
 
-    private void exit() {
-        if (pressedTime + 2000 > System.currentTimeMillis()) {
-            super.onBackPressed();
-            finish();
-        } else {
-            Toast.makeText(getBaseContext(), "Press back again to exit", Toast.LENGTH_SHORT).show();
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.logOut:
+                mAuth.signOut();
+                Intent intent = new Intent(UserHomeActivity.this, LoginActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                startActivity(intent);
+                finish();
         }
-        pressedTime = System.currentTimeMillis();
+        return super.onOptionsItemSelected(item);
     }
 }
