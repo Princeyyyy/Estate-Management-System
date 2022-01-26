@@ -41,8 +41,10 @@ public class LoginActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         loader = new ProgressDialog(this);
 
+        String mail = mloginEmail.getText().toString().trim();
+
         if (mAuth.getCurrentUser() != null) {
-            Intent intent = new Intent(LoginActivity.this, UserHomeActivity.class);
+            Intent intent = new Intent(LoginActivity.this, AdminHomeActivity.class);
             startActivity(intent);
         }
 
