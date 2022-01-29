@@ -13,9 +13,9 @@ public class RecyclerViewHolder extends RecyclerView.ViewHolder {
         mview = itemView;
     }
 
-    public void setFName(String fName){
+    public void setID(String id){
         TextView fNameTextView = mview.findViewById(R.id.vfirst_name);
-        fNameTextView.setText(fName);
+        fNameTextView.setText(id);
     }
 
     public void setLName(String LName){

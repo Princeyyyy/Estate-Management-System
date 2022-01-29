@@ -2,7 +2,6 @@ package com.example.estate_management_system;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -38,9 +37,6 @@ public class AdminHomeActivity extends AppCompatActivity {
     private Toolbar toolbar;
 
     public String key = "";
-    private String houseno;
-    private String fname;
-    private String lname;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +67,7 @@ public class AdminHomeActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        FirebaseAuth user = FirebaseAuth.getInstance();
 
 
         FirebaseRecyclerOptions<UserModel> options = new FirebaseRecyclerOptions.Builder<UserModel>()
@@ -80,21 +76,13 @@ public class AdminHomeActivity extends AppCompatActivity {
 
         FirebaseRecyclerAdapter<UserModel, RecyclerViewHolder> adapter = new FirebaseRecyclerAdapter<UserModel, RecyclerViewHolder>(options) {
             @Override
-            protected void onBindViewHolder(@NonNull RecyclerViewHolder holder, int i, @NonNull UserModel model) {
-                holder.setFName("First Name: " + model.getFname());
-                holder.setLName("Last Name: " + model.getLname());
-                holder.setHouseNo("House No " + model.getHouseno());
+            protected void onBindViewHolder(@NonNull RecyclerViewHolder holder, int position, @NonNull UserModel model) {
+                holder.setID("User ID: " + model.getHouseno());
 
                 holder.mview.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        key = getRef(i).getKey();
-                        houseno = model.getHouseno();
-                        fname = model.getFname();
-                        lname = model.getLname();
-                        Log.d("key", "id" + key);
-
-                        reference2 = FirebaseDatabase.getInstance().getReference().child("Users").child(key);
+                        key = FirebaseAuth.getInstance().getUid();
 
                         Intent intent = new Intent(AdminHomeActivity.this, ViewHouses.class);
                         intent.putExtra("key", key);
@@ -125,7 +113,7 @@ public class AdminHomeActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.logOut:
                 mAuth.signOut();
                 Intent intent = new Intent(AdminHomeActivity.this, LoginActivity.class);

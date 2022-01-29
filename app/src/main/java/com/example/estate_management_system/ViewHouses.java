@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 public class ViewHouses extends AppCompatActivity {
 
     Intent intent = getIntent();
-    String key = intent.getStringExtra("key1");
+    String key = intent.getParcelableExtra("key");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
